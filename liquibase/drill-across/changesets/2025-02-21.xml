@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet author="ewbarnard" id="2025-02-21aa">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_types"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_types_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_types`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ab">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="leagues"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/leagues_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `leagues`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ac">
+        <preConditions onFail="HALT">
+            <and>
+                <tableExists tableName="league_types"/>
+                <sqlCheck expectedResult="0">
+                    SELECT count(1) FROM `league_types`
+                    WHERE `name` IN ('Wizarding World', 'College', 'Home School', 'High School')
+                    LIMIT 2;
+                </sqlCheck>
+            </and>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/data/league_types_01.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>SELECT 'No Rollback';</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ad">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="teams"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/teams_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `teams`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ae">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="seasons"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/seasons_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `seasons`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21af">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="discipline_types"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/discipline_types_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `discipline_types`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ag">
+        <preConditions onFail="HALT">
+            <and>
+                <tableExists tableName="discipline_types"/>
+                <sqlCheck expectedResult="0">
+                    SELECT count(1) FROM `discipline_types`
+                    WHERE `name` IN
+                    ('Trap', 'Skeet', '5-Stand', 'Sporting Clays', 'Olympic Trap', 'Olympic Skeet')
+                    LIMIT 2;
+                </sqlCheck>
+            </and>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/data/discipline_types_01.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>SELECT 'No Rollback';</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ah">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="disciplines"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/disciplines_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `disciplines`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ai">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="nationals"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/nationals_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `nationals`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21aj">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="season_league_dimensions"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/season_league_dimensions_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `season_league_dimensions`;</rollback>
+    </changeSet>
+
+</databaseChangeLog>
