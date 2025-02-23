@@ -1,0 +1,37 @@
+INSERT IGNORE INTO `season_registration_facts` (
+  `season_league_dimension_id`,
+  `team_id`,
+  `season_roster_id`,
+  `happy_user_role_id`,
+  `happy_user_id`,
+  `discipline_id`,
+  `created_at`,
+  `updated_at`
+)
+SELECT
+  `sld`.`id` AS `season_league_dimension_id`,
+  `sr`.`team_id`,
+  `sr`.`id` AS `season_roster_id`,
+  `sr`.`happy_user_role_id`,
+  `hur`.`happy_user_id`,
+  `sr`.`discipline_id`,
+  CURRENT_TIMESTAMP AS `created_at`,
+  CURRENT_TIMESTAMP AS `updated_at`
+FROM
+  `season_rosters` `sr`
+  JOIN `happy_user_roles` `hur`
+    ON `sr`.`happy_user_role_id` = `hur`.`id`
+  JOIN `teams` `t`
+    ON `t`.`id` = `hur`.`team_id`
+  JOIN `leagues` `l`
+    ON `l`.`id` = `t`.`league_id`
+  JOIN `season_league_dimensions` `sld`
+    ON `sld`.`season_id` = `sr`.`season_id`
+    AND `sld`.`league_id` = `l`.`id`
+    AND `sld`.`league_type_id` = `l`.`league_type_id`
+WHERE
+  `sr`.`is_registration_complete` = 1
+  AND `sr`.`is_active` = 1
+  AND `hur`.`is_active` = 1
+ORDER BY
+  `sr`.`id`;

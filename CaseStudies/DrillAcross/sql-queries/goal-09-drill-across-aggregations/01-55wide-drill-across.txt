@@ -1,0 +1,127 @@
+WITH
+  `season_league_dimensions_cte` AS (
+    SELECT
+      `sld`.`id` AS `season_league_dimension_id`,
+      `sld`.`season_id`,
+      `sld`.`season`,
+      `sld`.`league_name`
+    FROM
+      `season_league_dimensions` `sld`
+  ),
+  `season_registration_cte` AS (
+    SELECT
+      `asrf`.`season_league_dimension_id`,
+      `asrf`.`team_count`,
+      `asrf`.`athlete_total`,
+      `asrf`.`athlete_unique`,
+      `asrf`.`athlete_new`
+    FROM
+      `agg_season_registration_facts` `asrf`
+  ),
+  `season_scores_cte` AS (
+    SELECT
+      `assf`.`season_league_dimension_id`,
+      `assf`.`straight_25`,
+      `assf`.`straight_50`
+    FROM
+      `agg_season_score_facts` `assf`
+  ),
+  `league_registrations_cte` AS (
+    SELECT
+      `alrf`.`season_league_dimension_id`,
+      `alrf`.`t_team_count`,
+      `alrf`.`t_athlete_total`,
+      `alrf`.`t_athlete_unique`
+    FROM
+      `agg_league_registration_facts` `alrf`
+  ),
+  `league_scores_cte` AS (
+    SELECT
+      `alsf`.`season_league_dimension_id`,
+      `alsf`.`t_straight_25`,
+      `alsf`.`t_straight_50`,
+      `alsf`.`t_straight_75`,
+      `alsf`.`t_straight_100`
+    FROM
+      `agg_league_score_facts` `alsf`
+  ),
+  `national_registrations_cte` AS (
+    SELECT
+      `anrf`.`season_league_dimension_id`,
+      `anrf`.`t_team_count`,
+      `anrf`.`t_athlete_total`,
+      `anrf`.`t_athlete_unique`
+    FROM
+      `agg_national_registration_facts` `anrf`
+  ),
+  `national_scores_cte` AS (
+    SELECT
+      `ansf`.`season_league_dimension_id`,
+      `ansf`.`t_straight_25`,
+      `ansf`.`t_straight_50`,
+      `ansf`.`t_straight_75`,
+      `ansf`.`t_straight_100`
+    FROM
+      `agg_national_score_facts` `ansf`
+  )
+SELECT
+  `sd`.`season_league_dimension_id`,
+  `sd`.`season_id`,
+  `sd`.`season`,
+  `sd`.`league_name`,
+  `sr`.`team_count` AS `season_team_count`,
+  `sr`.`athlete_total` AS `season_athlete_total`,
+  `sr`.`athlete_unique` AS `season_athlete_unique`,
+  `sr`.`athlete_new` AS `season_athlete_new`,
+  `ss`.`straight_25` AS `season_straight_25`,
+  `ss`.`straight_50` AS `season_straight_50`,
+  COALESCE(
+    `lr`.`t_team_count`,
+    `nr`.`t_team_count`
+  ) AS `tourn_team_count`,
+  COALESCE(
+    `lr`.`t_athlete_total`,
+    `nr`.`t_athlete_total`
+  ) AS `tourn_athlete_total`,
+  COALESCE(
+    `lr`.`t_athlete_unique`,
+    `nr`.`t_athlete_unique`
+  ) AS `tourn_athlete_unique`,
+  COALESCE(
+    `ls`.`t_straight_25`,
+    `ns`.`t_straight_25`
+  ) AS `tourn_straight_25`,
+  COALESCE(
+    `ls`.`t_straight_50`,
+    `ns`.`t_straight_50`
+  ) AS `tourn_straight_50`,
+  COALESCE(
+    `ls`.`t_straight_75`,
+    `ns`.`t_straight_75`
+  ) AS `tourn_straight_75`,
+  COALESCE(
+    `ls`.`t_straight_100`,
+    `ns`.`t_straight_100`
+  ) AS `tourn_straight_100`
+FROM
+  `season_league_dimensions_cte` `sd`
+  LEFT JOIN `season_registration_cte` `sr`
+    ON `sd`.`season_league_dimension_id` =
+       `sr`.`season_league_dimension_id`
+  LEFT JOIN `season_scores_cte` `ss`
+    ON `sd`.`season_league_dimension_id` =
+       `ss`.`season_league_dimension_id`
+  LEFT JOIN `league_registrations_cte` `lr`
+    ON `sd`.`season_league_dimension_id` =
+       `lr`.`season_league_dimension_id`
+  LEFT JOIN `league_scores_cte` `ls`
+    ON `sd`.`season_league_dimension_id` =
+       `ls`.`season_league_dimension_id`
+  LEFT JOIN `national_registrations_cte` `nr`
+    ON `sd`.`season_league_dimension_id` =
+       `nr`.`season_league_dimension_id`
+  LEFT JOIN `national_scores_cte` `ns`
+    ON `sd`.`season_league_dimension_id` =
+       `ns`.`season_league_dimension_id`
+ORDER BY
+  `sd`.`season_league_dimension_id`;
