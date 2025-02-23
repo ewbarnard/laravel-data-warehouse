@@ -13,7 +13,7 @@ class PopulateLeagues extends Command
      *
      * @var string
      */
-    protected $signature = 'populate:leagues {count=10 : The number of leagues to generate}';
+    protected $signature = 'populate:leagues {count=15 : The number of leagues to generate}';
 
     /**
      * The console command description.

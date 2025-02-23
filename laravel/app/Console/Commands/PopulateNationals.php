@@ -19,7 +19,7 @@ class PopulateNationals extends Command
      *
      * @var string
      */
-    protected $description = 'Populates the nationals table with all possible combinations of seasons, league_types, and their corresponding disciplines.';
+    protected $description = 'Populates the nationals table with a 5% chance for each combination of seasons, league_types, and their corresponding disciplines.';
 
     /**
      * Execute the console command.
@@ -66,18 +66,21 @@ class PopulateNationals extends Command
                 }
 
                 foreach ($disciplines as $discipline) {
-                    $data[] = [
-                        'season_id' => $season->id,
-                        'league_type_id' => $leagueType->id,
-                        'discipline_id' => $discipline->discipline_id,
-                        'name' => "{$discipline->discipline_type_name} Nationals",
-                        'description' => "{$descriptionAlternatives[$descriptionIndex]} {$leagueType->name}",
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
+                    // Add a 5% chance of creating a nationals record
+                    if (rand(1, 100) <= 5) {
+                        $data[] = [
+                            'season_id' => $season->id,
+                            'league_type_id' => $leagueType->id,
+                            'discipline_id' => $discipline->discipline_id,
+                            'name' => "{$discipline->discipline_type_name} Nationals",
+                            'description' => "{$descriptionAlternatives[$descriptionIndex]} {$leagueType->name}",
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
 
-                    // Alternate the description between "Virtual" and "In-Person"
-                    $descriptionIndex = ($descriptionIndex + 1) % 2;
+                        // Alternate the description between "Virtual" and "In-Person"
+                        $descriptionIndex = ($descriptionIndex + 1) % 2;
+                    }
                 }
             }
         }
@@ -85,7 +88,7 @@ class PopulateNationals extends Command
         // Insert the data into the nationals table
         if (!empty($data)) {
             DB::table('nationals')->insert($data);
-            $this->info('Successfully populated the nationals table with all possible combinations.');
+            $this->info('Successfully populated the nationals table with a 5% chance for each combination.');
         } else {
             $this->warn('No data was inserted into the nationals table. Ensure all related tables are populated.');
         }

@@ -48,7 +48,7 @@ class PopulateTeams extends Command
         // Insert random teams for each league
         foreach ($leagues as $league) {
             // Generate a random number of teams between 5 and 100 for the current league
-            $teamCount = $faker->numberBetween(5, 100);
+            $teamCount = $faker->numberBetween(5, 10);
 
             for ($i = 0; $i < $teamCount; $i++) {
                 $city = $faker->city;

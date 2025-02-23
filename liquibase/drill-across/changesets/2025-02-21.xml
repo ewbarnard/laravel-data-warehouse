@@ -175,4 +175,416 @@
         <rollback>DROP TABLE IF EXISTS `season_league_dimensions`;</rollback>
     </changeSet>
 
+    <changeSet author="ewbarnard" id="2025-02-21ak">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="happy_user_role_type"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/happy_user_role_type_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `happy_user_role_type`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21al">
+        <preConditions onFail="HALT">
+            <and>
+                <tableExists tableName="happy_user_role_type"/>
+                <sqlCheck expectedResult="0">
+                    SELECT count(1) FROM `happy_user_role_type`
+                    WHERE `name` IN
+                    ('Athlete')
+                    LIMIT 2;
+                </sqlCheck>
+            </and>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/data/happy_user_role_type_01.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>SELECT 'No Rollback';</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21am">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="happy_roles"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/happy_roles_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `happy_roles`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21an">
+        <preConditions onFail="HALT">
+            <and>
+                <tableExists tableName="happy_roles"/>
+                <sqlCheck expectedResult="0">
+                    SELECT count(1) FROM `happy_roles`
+                    WHERE `name` IN
+                    ('Athlete')
+                    LIMIT 2;
+                </sqlCheck>
+            </and>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/data/happy_roles_01.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DELETE FROM happy_roles where `name` in ('Athlete');</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ao">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="happy_users"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/happy_users_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `happy_users`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-21ap">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="happy_user_roles"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/happy_user_roles_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `happy_user_roles`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22aa">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="season_rosters"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/season_rosters_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `season_rosters`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ab">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="season_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/season_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `season_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ac">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="season_scores"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/season_scores_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `season_scores`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ad">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="season_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/season_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `season_score_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ae">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_tournaments"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_tournaments_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_tournaments`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22af">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_tournament_rosters"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_tournament_rosters_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_tournament_rosters`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ag">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ah">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_tournament_scores"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_tournament_scores_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_tournament_scores`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ai">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="league_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/league_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `league_score_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22aj">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="national_rosters"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/national_rosters_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `national_rosters`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ak">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="national_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/national_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `national_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22al">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="national_scores"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/national_scores_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `national_scores`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22am">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="national_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/national_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `national_score_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22an">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_season_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_season_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_season_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ao">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_season_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_season_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_season_score_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ap">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_league_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_league_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_league_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22aq">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_league_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_league_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_league_score_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22ar">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_national_registration_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_national_registration_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_national_registration_facts`;</rollback>
+    </changeSet>
+
+    <changeSet author="ewbarnard" id="2025-02-22as">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="agg_national_score_facts"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter=";"
+                 path="../sql/tables/agg_national_score_facts_00.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>DROP TABLE IF EXISTS `agg_national_score_facts`;</rollback>
+    </changeSet>
+
 </databaseChangeLog>

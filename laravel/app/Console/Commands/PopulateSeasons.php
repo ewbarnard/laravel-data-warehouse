@@ -30,7 +30,7 @@ class PopulateSeasons extends Command
     {
         // Define the range of years and the seasons
         $years = range(2012, 2026);
-        $seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+        $seasons = ['Spring', 'Fall'];
 
         // Prepare the data for insertion
         $data = [];
