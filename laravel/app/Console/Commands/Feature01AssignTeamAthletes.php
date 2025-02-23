@@ -25,16 +25,23 @@ class Feature01AssignTeamAthletes extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         // Commands to execute in sequence
         $commands = [
             'populate:leagues',
-            'populate:teams',
-            'populate:seasons',
             'populate:disciplines',
-            'populate:nationals',
+            'populate:seasons',
+            'populate:teams',
             'populate:happy',
+            'populate:season_rosters',
+            'populate:season_scores',
+            'populate:league_tournaments',
+            'populate:league_tournament_rosters',
+            'populate:league_tournament_scores',
+            'populate:nationals',
+            'populate:national_rosters',
+            'populate:national_scores',
         ];
 
         foreach ($commands as $command) {
