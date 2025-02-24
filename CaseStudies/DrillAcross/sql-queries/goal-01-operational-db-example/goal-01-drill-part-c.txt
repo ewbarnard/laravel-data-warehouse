@@ -1,0 +1,20 @@
+-- Drill across (combine step 1 and step 2 results)
+SELECT
+    `sr`.`season_id`,
+    `sr`.`name`,
+    `sr`.`league_id`,
+    `sr`.`league`,
+    `sr`.`team_count`,
+    `sr`.`athlete_total`,
+    `sr`.`athlete_unique`,
+    `sr`.`athlete_new`,
+    `lr`.`t_team_count`,
+    `lr`.`t_athlete_total`,
+    `lr`.`t_athlete_unique`
+FROM `season_rosters_cte` `sr`
+LEFT JOIN `league_tournament_rosters_cte` `lr`
+    ON `sr`.`season_id` = `lr`.`season_id`
+    AND `sr`.`league_id` = `lr`.`league_id`
+ORDER BY
+    `sr`.`season_id`,
+    `sr`.`league_id`;
